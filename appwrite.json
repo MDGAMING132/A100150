@@ -1,0 +1,28 @@
+{
+    "projectId": "69c2219400207a287a98",
+    "projectName": "A100150 Hub",
+    "functions": [
+        {
+            "$id": "69c2ae791805b917dd18",
+            "name": "Universal Notifier",
+            "runtime": "node-18.0",
+            "path": ".",
+            "entrypoint": "src/index.js",
+            "execute": [],
+            "events": [
+                "databases.*.collections.meetings.documents.*.create",
+                "databases.*.collections.group_projects.documents.*.create",
+                "databases.*.collections.event_projects.documents.*.create",
+                "databases.*.collections.student_points.documents.*.update"
+            ],
+            "schedule": "",
+            "timeout": 15,
+            "enabled": true,
+            "logging": true,
+            "ignore": [
+                "node_modules",
+                ".git"
+            ]
+        }
+    ]
+}

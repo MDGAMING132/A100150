@@ -28,28 +28,34 @@ module.exports = async function (context) {
         // --- 1. MEETING NOTIFICATIONS ---
         if (event.includes('collections.meetings')) {
             if (event.includes('.create')) {
-                title = '📅 New Meeting Scheduled';
-                body = `${payload.title}\nPurpose: ${payload.purpose}`;
+                title = '📅 New Sync Scheduled';
+                body = `Topic: ${payload.title}\n"${payload.purpose}"`;
                 targetEmails = payload.selectedMemberEmails || [];
             }
         } 
         
         // --- 2. PROJECT NOTIFICATIONS ---
-        else if (event.includes('collections.group_projects') || event.includes('collections.event_projects')) {
+        else if (event.includes('collections.group_projects')) {
             if (event.includes('.create')) {
-                const type = event.includes('group_projects') ? 'Group' : 'Event';
-                title = `🚀 New ${type} Project`;
-                body = `${payload.title}\nStatus: ${payload.status || 'Active'}`;
+                title = '🚀 New Group Project';
+                body = `Project: ${payload.title}\nTrack: ${payload.track || 'A100150'}`;
                 targetEmails = payload.eligibleMemberEmails || [];
             }
-        } 
+        }
+        else if (event.includes('collections.event_projects')) {
+            if (event.includes('.create')) {
+                title = '🏆 New Event Challenge';
+                body = `Event: ${payload.title}\nDon't miss out!`;
+                targetEmails = payload.eligibleMemberEmails || [];
+            }
+        }
         
         // --- 3. POINT UPDATE NOTIFICATIONS ---
         else if (event.includes('collections.student_points')) {
             if (event.includes('.update')) {
-                title = '📊 Points Updated!';
-                body = `Your score: AP: ${payload.ap} | RP: ${payload.rp}\nKeep it up!`;
-                targetEmails = [payload.email]; // Individual notification
+                title = '📈 Dashboard Update';
+                body = `Your weekly sync is complete!\nAP: ${payload.ap} | RP: ${payload.rp}`;
+                targetEmails = [payload.email];
             }
         }
 
